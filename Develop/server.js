@@ -4,6 +4,9 @@ const logger = require("morgan");
 
 const PORT = process.env.PORT || 5000;
 
+const htmlRoutes = require("./routes/htmlRoutes");
+const apiRoutes = require("./routes/apiRoutes");
+
 const app = express();
 
 app.use(logger("dev"));
@@ -21,5 +24,8 @@ mongoose
   })
   .then(() => console.log("connected to mongodb"))
   .catch((err) => console.log(err));
+
+app.use("/", htmlRoutes);
+app.use("/api", apiRoutes);
 
 app.listen(PORT, () => console.log(`listening at http://localhost:${PORT}`));
