@@ -13,7 +13,6 @@ router.get("/workouts", (req, res) => {
       },
     ])
     .then((result) => {
-      console.log(result);
       res.json(result);
     })
     .catch((err) => {
@@ -25,7 +24,6 @@ router.post("/workouts", (req, res) => {
   workoutDb
     .create({})
     .then((result) => {
-      console.log(result);
       res.json(result);
     })
     .catch((err) => {
@@ -45,7 +43,6 @@ router.get("/workouts/range", (req, res) => {
       },
     ])
     .then((result) => {
-      console.log(result);
       res.json(result);
     })
     .catch((err) => {
@@ -65,7 +62,6 @@ router.put("/workouts/:id", (req, res) => {
       }
     )
     .then((result) => {
-      console.log(result);
       res.json(result);
     })
     .catch((err) => {
