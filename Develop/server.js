@@ -17,12 +17,15 @@ app.use(express.json());
 app.use(express.static("public"));
 
 mongoose
-  .connect(process.env.MONGODB_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useCreateIndex: true,
-    useFindAndModify: false,
-  })
+  .connect(
+    "mongodb+srv://FrPh5850:password5850@cluster0.ui4v9.mongodb.net/workout?retryWrites=true&w=majority",
+    {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      useCreateIndex: true,
+      useFindAndModify: false,
+    }
+  )
   .then(() => console.log("connected to mongodb"))
   .catch((err) => console.log(err));
 
