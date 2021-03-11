@@ -13,7 +13,7 @@ router.get("/workouts", (req, res) => {
       },
     ])
     .then((result) => {
-      console.log(result);
+      console.log(result, "get");
       res.json(result);
     })
     .catch((err) => {
@@ -21,18 +21,11 @@ router.get("/workouts", (req, res) => {
     });
 });
 
-router.post("/workouts", (req, res) => {
+router.post("/workouts", ({ body }, res) => {
   workoutDb
-    .create({
-      type: "",
-      name: "",
-      duration: 0,
-      weight: 0,
-      reps: 0,
-      sets: 0,
-    })
+    .create(body)
     .then((result) => {
-      console.log(result);
+      console.log(result, "post");
       res.json(result);
     })
     .catch((err) => {
@@ -52,7 +45,6 @@ router.get("/workouts/range", (req, res) => {
       },
     ])
     .then((result) => {
-      console.log(result);
       res.json(result);
     })
     .catch((err) => {
@@ -62,8 +54,8 @@ router.get("/workouts/range", (req, res) => {
 
 router.put("/workouts/:id", (req, res) => {
   workoutDb
-    .findByIdAndUpdate(
-      req.params.id,
+    .findOneAndUpdate(
+      { _id: req.params.id },
       {
         $push: { exercises: req.body },
       },
@@ -72,7 +64,7 @@ router.put("/workouts/:id", (req, res) => {
       }
     )
     .then((result) => {
-      console.log(result);
+      console.log(result, "put");
       res.json(result);
     })
     .catch((err) => {
