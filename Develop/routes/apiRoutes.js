@@ -23,7 +23,14 @@ router.get("/workouts", (req, res) => {
 
 router.post("/workouts", (req, res) => {
   workoutDb
-    .create({})
+    .create({
+      type: "",
+      name: "",
+      duration: 0,
+      weight: 0,
+      reps: 0,
+      sets: 0,
+    })
     .then((result) => {
       console.log(result);
       res.json(result);
