@@ -25,7 +25,7 @@ router.get("/workouts", (req, res) => {
 router.post("/workouts", (req, res) => {
   console.log("hello");
   workoutDb
-    .set({
+    .create({
       type: "resistance",
       name: "Bicep Curl",
       duration: 20,
