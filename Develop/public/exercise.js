@@ -18,12 +18,11 @@ let workoutType = null;
 let shouldNavigateAway = false;
 
 async function initExercise() {
-  console.log("Helping this thing work");
   let workout;
-  // TODO: this is the issue. It is not creating a new object;id
+
   if (location.search.split("=")[1] === undefined) {
     workout = await API.createWorkout();
-    console.log(workout, "bobby");
+    console.log(workout);
   }
   if (workout) {
     location.search = "?id=" + workout._id;
