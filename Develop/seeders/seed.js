@@ -1,11 +1,17 @@
 let mongoose = require("mongoose");
-let db = require("../models");
+let Workout = require("../models/workout");
 
-mongoose.connect("mongodb://localhost/workout", {
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workout", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useCreateIndex: true,
   useFindAndModify: false,
+});
+
+const db = mongoose.connection;
+db.on("error", console.error.bind(console, "connection error:"));
+db.once("open", () => {
+  console.log("Database connected");
 });
 
 let workoutSeed = [
@@ -126,13 +132,36 @@ let workoutSeed = [
   },
 ];
 
-db.Workout.deleteMany({})
-  .then(() => db.Workout.collection.insertMany(workoutSeed))
-  .then((data) => {
-    console.log(data.result.n + " records inserted!");
-    process.exit(0);
-  })
-  .catch((err) => {
-    console.error(err);
-    process.exit(1);
+const seedDB = async () => {
+  const workout = await new Workout({
+    dayExercised: new Date().setDate(new Date().getDate() - 10),
+    exercises: [
+      {
+        type: "resistance",
+        name: "Bicep Curl",
+        duration: 20,
+        weight: 100,
+        reps: 10,
+        sets: 4,
+      },
+    ],
   });
+  console.log(workout);
+  await workout.save();
+};
+
+// db.workouts
+//   .deleteMany({})
+//   .then(() => db.workouts.collection.insertMany(workoutSeed))
+//   .then((data) => {
+//     console.log(data.result.n + " records inserted!");
+//     process.exit(0);
+//   })
+//   .catch((err) => {
+//     console.error(err);
+//     process.exit(1);
+//   });
+seedDB().then(() => {
+  console.log("databasecloses");
+  mongoose.connection.close();
+});
