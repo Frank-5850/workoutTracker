@@ -56,6 +56,7 @@ router.get("/workouts/range", (req, res) => {
 
 router.put("/workouts/:id", (req, res) => {
   console.log("dahello");
+  // TODO: because we are unable to create a new workout; AKA new id, we are unable to locate the id to update information
   workoutDb
     .findByIdAndUpdate(
       req.params.id,
