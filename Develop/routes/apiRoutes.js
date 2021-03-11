@@ -51,6 +51,7 @@ router.get("/workouts/range", (req, res) => {
 });
 
 router.put("/workouts/:id", (req, res) => {
+  console.log("hello");
   workoutDb
     .findByIdAndUpdate(
       req.params.id,
